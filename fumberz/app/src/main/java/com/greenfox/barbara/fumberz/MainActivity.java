@@ -29,13 +29,14 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     Button yearButton;
 
     TextToSpeech tts;
-    Button speakButton;
+    Button numberSpeakButton;
+    Button yearSpeakButton;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_not_21);
 
         tts = new TextToSpeech(this, this);
 
@@ -71,11 +72,19 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         });
 
         //speakButton
-        speakButton = findViewById(R.id.numberSpeakButton);
-        speakButton.setOnClickListener(new View.OnClickListener() {
+        numberSpeakButton = findViewById(R.id.numberSpeakButton);
+        numberSpeakButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                speakOutNow();
+                speakOutNumber();
+            }
+        });
+
+        yearSpeakButton = findViewById(R.id.yearSpeakButton);
+        yearSpeakButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                speakOutYear();
             }
         });
     }
@@ -86,8 +95,10 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         if (text == TextToSpeech.SUCCESS) {
             int language = tts.setLanguage(Locale.UK);
             if (language == TextToSpeech.LANG_MISSING_DATA || language == TextToSpeech.LANG_NOT_SUPPORTED) {
-                speakButton.setEnabled(true);
-                speakOutNow();
+                numberSpeakButton.setEnabled(true);
+                speakOutNumber();
+                yearSpeakButton.setEnabled(true);
+                speakOutYear();
             }
             else {
             }
@@ -96,8 +107,13 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         }
     }
 
-    public void speakOutNow() {
+    public void speakOutNumber() {
         String text = numberDescriptionView.getText().toString();
+        tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+    }
+
+    public void speakOutYear() {
+        String text = yearDescriptionView.getText().toString();
         tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
     }
 
