@@ -29,4 +29,10 @@ dependencies {
     //retrofit dependencies
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.2.0'
+
+    // google
+    compile 'com.google.android.gms:play-services-auth:11.6.0'
+
 }
+
+apply plugin: 'com.google.gms.google-services'
